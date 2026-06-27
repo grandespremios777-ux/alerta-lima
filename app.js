@@ -278,7 +278,7 @@ document.getElementById('publicar').addEventListener('click', function() {
   const lngAlerta = ubicacionSeleccionada.lng;
 
   const ahora = new Date();
-  const vence = new Date(ahora.getTime() + 30 * 60 * 1000);
+  const vence = new Date(ahora.getTime() + 2 * 60 * 60 * 1000);
 
   db.collection("alertas").add({
     tipo: tipo,
