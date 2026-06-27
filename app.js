@@ -47,6 +47,85 @@ function crearIconoAlerta(tipo) {
   });
 }
 
+function obtenerFechaVencimiento(alerta) {
+  if (alerta.expiresAt && alerta.expiresAt.toDate) {
+    return alerta.expiresAt.toDate();
+  }
+
+  if (alerta.expiresAt) {
+    return new Date(alerta.expiresAt);
+  }
+
+  return null;
+}
+
+function crearPopupAlerta(id, alerta) {
+  const vence = obtenerFechaVencimiento(alerta);
+  const comentarios = alerta.comentarios || [];
+
+  const listaComentarios = comentarios.length
+    ? comentarios.map(c => `<li>${c.texto || c}</li>`).join('')
+    : '<li>Aún no hay comentarios</li>';
+
+  return `
+    <div class="popup-alerta">
+      <strong>${alerta.tipo}</strong><br>
+      <p>${alerta.descripcion}</p>
+
+      <small>Se borra: ${vence ? vence.toLocaleTimeString() : 'pronto'}</small>
+
+      <hr>
+
+      <strong>Comentarios</strong>
+      <ul class="lista-comentarios">
+        ${listaComentarios}
+      </ul>
+
+      <input 
+        id="comentario-${id}" 
+        type="text" 
+        placeholder="Escribe un comentario..." 
+        style="width:100%; padding:8px; box-sizing:border-box;"
+      />
+
+      <button 
+        onclick="comentarAlerta('${id}')" 
+        style="width:100%; margin-top:6px; padding:8px; border:none; border-radius:8px; background:#222; color:white;"
+      >
+        Comentar
+      </button>
+    </div>
+  `;
+}
+
+window.comentarAlerta = function(id) {
+  const input = document.getElementById(`comentario-${id}`);
+
+  if (!input) return;
+
+  const texto = input.value.trim();
+
+  if (texto.length < 2) {
+    alert('Escribe un comentario más claro.');
+    return;
+  }
+
+  db.collection("alertas").doc(id).update({
+    comentarios: firebase.firestore.FieldValue.arrayUnion({
+      texto: texto,
+      createdAt: new Date()
+    })
+  })
+  .then(() => {
+    input.value = '';
+    console.log("Comentario agregado");
+  })
+  .catch((error) => {
+    console.error("Error agregando comentario:", error);
+    alert("No se pudo agregar el comentario.");
+  });
+};
+
 function actualizarUbicacionUsuario(posicion) {
   const lat = posicion.coords.latitude;
   const lng = posicion.coords.longitude;
@@ -117,7 +196,7 @@ document.getElementById('publicar').addEventListener('click', function() {
   const lngAlerta = ubicacionSeleccionada.lng;
 
   const ahora = new Date();
-  const vence = new Date(ahora.getTime() + 30 * 1000);
+  const vence = new Date(ahora.getTime() + 3 * 60 * 1000);
 
   db.collection("alertas").add({
     tipo: tipo,
@@ -148,32 +227,22 @@ document.getElementById('publicar').addEventListener('click', function() {
 });
 
 function dibujarAlerta(id, alerta) {
-  if (marcadoresAlertas[id]) return;
   if (!alerta.lat || !alerta.lng) return;
 
-  const ahora = new Date();
+  const vence = obtenerFechaVencimiento(alerta);
 
-  let vence = null;
+  if (vence && vence <= new Date()) return;
 
-  if (alerta.expiresAt && alerta.expiresAt.toDate) {
-    vence = alerta.expiresAt.toDate();
-  } else if (alerta.expiresAt) {
-    vence = new Date(alerta.expiresAt);
+  if (marcadoresAlertas[id]) {
+    marcadoresAlertas[id].setPopupContent(crearPopupAlerta(id, alerta));
+    return;
   }
-
-  if (vence && vence <= ahora) return;
 
   const icono = crearIconoAlerta(alerta.tipo);
 
   const marcador = L.marker([alerta.lat, alerta.lng], { icon: icono })
     .addTo(map)
-    .bindPopup(`
-      <div class="popup-alerta">
-        <strong>${alerta.tipo}</strong><br>
-        <p>${alerta.descripcion}</p>
-        <small>Se borra: ${vence ? vence.toLocaleTimeString() : 'pronto'}</small>
-      </div>
-    `);
+    .bindPopup(crearPopupAlerta(id, alerta));
 
   marcadoresAlertas[id] = marcador;
 
@@ -194,7 +263,7 @@ db.collection("alertas").onSnapshot((snapshot) => {
     const id = change.doc.id;
     const alerta = change.doc.data();
 
-    if (change.type === "added") {
+    if (change.type === "added" || change.type === "modified") {
       dibujarAlerta(id, alerta);
     }
 
