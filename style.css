@@ -1,0 +1,139 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+#map {
+  width: 100%;
+  height: 100vh;
+}
+
+#btn-alerta {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #d10000;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+#panel-alerta {
+  position: fixed;
+  bottom: 90px;
+  left: 15px;
+  right: 15px;
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+  z-index: 1001;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+}
+
+#panel-alerta h2 {
+  margin-top: 0;
+}
+
+select, textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 90px;
+  resize: none;
+}
+
+#publicar {
+  width: 100%;
+  background: #d10000;
+  color: white;
+  border: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+#cerrar {
+  width: 100%;
+  margin-top: 8px;
+  background: #eee;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.oculto {
+  display: none;
+}
+
+.icono-auto {
+  font-size: 30px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.icono-auto {
+  font-size: 30px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.icono-alerta {
+  text-align: center;
+}
+
+.burbuja-alerta {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 3px solid white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+}
+
+.popup-alerta p {
+  margin: 8px 0;
+}
+
+
+#comentario-input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
+#btn-comentar {
+  width: 100%;
+  margin-top: 6px;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.popup-alerta ul {
+  padding-left: 18px;
+  margin: 8px 0;
+}
+
+.popup-alerta li {
+  font-size: 13px;
+  margin-bottom: 4px;
+}

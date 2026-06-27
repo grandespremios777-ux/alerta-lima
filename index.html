@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alerta Lima</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <button id="btn-alerta">Crear alerta</button>
+
+  <div id="panel-alerta" class="oculto">
+    <h2>Nueva alerta</h2>
+
+    <select id="tipo">
+      <option value="Manifestación">Manifestación</option>
+      <option value="Robo">Robo</option>
+      <option value="Choque">Choque</option>
+      <option value="Accidente">Accidente</option>
+      <option value="Calle cerrada">Calle cerrada</option>
+      <option value="Zona peligrosa">Zona peligrosa</option>
+    </select>
+
+    <textarea id="descripcion" placeholder="Describe brevemente qué está pasando..."></textarea>
+
+    <button id="publicar">Publicar alerta</button>
+    <button id="cerrar">Cancelar</button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
