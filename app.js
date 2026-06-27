@@ -32,13 +32,38 @@ const tiposAlerta = {
   "Zona peligrosa": { emoji: "⚠️", color: "#fbc02d" }
 };
 
-function crearIconoAlerta(tipo) {
+function obtenerEstadoAlerta(confirmaciones, negativos) {
+  if (negativos >= 3 && negativos > confirmaciones) {
+    return {
+      texto: "Dudosa / posible falsa",
+      emoji: "🔴",
+      color: "#d32f2f"
+    };
+  }
+
+  if (confirmaciones >= 3) {
+    return {
+      texto: "Confirmada por usuarios",
+      emoji: "🟢",
+      color: "#2e7d32"
+    };
+  }
+
+  return {
+    texto: "Poca confirmación",
+    emoji: "🟡",
+    color: "#f9a825"
+  };
+}
+
+function crearIconoAlerta(tipo, confirmaciones = 0, negativos = 0) {
   const data = tiposAlerta[tipo] || { emoji: "⚠️", color: "#d10000" };
+  const estado = obtenerEstadoAlerta(confirmaciones, negativos);
 
   return L.divIcon({
     className: 'icono-alerta',
     html: `
-      <div style="background:${data.color}" class="burbuja-alerta">
+      <div style="background:${data.color}; border-color:${estado.color}" class="burbuja-alerta">
         ${data.emoji}
       </div>
     `,
@@ -62,6 +87,9 @@ function obtenerFechaVencimiento(alerta) {
 function crearPopupAlerta(id, alerta) {
   const vence = obtenerFechaVencimiento(alerta);
   const comentarios = alerta.comentarios || [];
+  const confirmaciones = alerta.confirmaciones || 0;
+  const negativos = alerta.negativos || 0;
+  const estado = obtenerEstadoAlerta(confirmaciones, negativos);
 
   const listaComentarios = comentarios.length
     ? comentarios.map(c => `<li>${c.texto || c}</li>`).join('')
@@ -72,7 +100,29 @@ function crearPopupAlerta(id, alerta) {
       <strong>${alerta.tipo}</strong><br>
       <p>${alerta.descripcion}</p>
 
+      <div style="margin:8px 0; padding:6px; border-radius:8px; background:${estado.color}; color:white;">
+        ${estado.emoji} ${estado.texto}
+      </div>
+
+      <small>✅ Sigue activo: ${confirmaciones}</small><br>
+      <small>⚠️ Ya pasó / falso: ${negativos}</small><br>
       <small>Se borra: ${vence ? vence.toLocaleTimeString() : 'pronto'}</small>
+
+      <hr>
+
+      <button 
+        onclick="confirmarAlerta('${id}')" 
+        style="width:100%; margin-top:6px; padding:8px; border:none; border-radius:8px; background:#2e7d32; color:white;"
+      >
+        ✅ Sigue activo
+      </button>
+
+      <button 
+        onclick="negarAlerta('${id}')" 
+        style="width:100%; margin-top:6px; padding:8px; border:none; border-radius:8px; background:#d32f2f; color:white;"
+      >
+        ⚠️ Ya pasó / falso
+      </button>
 
       <hr>
 
@@ -98,6 +148,26 @@ function crearPopupAlerta(id, alerta) {
   `;
 }
 
+window.confirmarAlerta = function(id) {
+  db.collection("alertas").doc(id).update({
+    confirmaciones: firebase.firestore.FieldValue.increment(1)
+  })
+  .catch((error) => {
+    console.error("Error confirmando alerta:", error);
+    alert("No se pudo confirmar.");
+  });
+};
+
+window.negarAlerta = function(id) {
+  db.collection("alertas").doc(id).update({
+    negativos: firebase.firestore.FieldValue.increment(1)
+  })
+  .catch((error) => {
+    console.error("Error marcando como falsa:", error);
+    alert("No se pudo registrar.");
+  });
+};
+
 window.comentarAlerta = function(id) {
   const input = document.getElementById(`comentario-${id}`);
 
@@ -118,7 +188,6 @@ window.comentarAlerta = function(id) {
   })
   .then(() => {
     input.value = '';
-    console.log("Comentario agregado");
   })
   .catch((error) => {
     console.error("Error agregando comentario:", error);
@@ -196,7 +265,7 @@ document.getElementById('publicar').addEventListener('click', function() {
   const lngAlerta = ubicacionSeleccionada.lng;
 
   const ahora = new Date();
-  const vence = new Date(ahora.getTime() + 3 * 60 * 1000);
+  const vence = new Date(ahora.getTime() + 30 * 60 * 1000);
 
   db.collection("alertas").add({
     tipo: tipo,
@@ -205,7 +274,9 @@ document.getElementById('publicar').addEventListener('click', function() {
     lng: lngAlerta,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     expiresAt: vence,
-    comentarios: []
+    comentarios: [],
+    confirmaciones: 0,
+    negativos: 0
   })
   .then(() => {
     console.log("Alerta guardada en Firebase");
@@ -233,12 +304,15 @@ function dibujarAlerta(id, alerta) {
 
   if (vence && vence <= new Date()) return;
 
+  const confirmaciones = alerta.confirmaciones || 0;
+  const negativos = alerta.negativos || 0;
+  const icono = crearIconoAlerta(alerta.tipo, confirmaciones, negativos);
+
   if (marcadoresAlertas[id]) {
     marcadoresAlertas[id].setPopupContent(crearPopupAlerta(id, alerta));
+    marcadoresAlertas[id].setIcon(icono);
     return;
   }
-
-  const icono = crearIconoAlerta(alerta.tipo);
 
   const marcador = L.marker([alerta.lat, alerta.lng], { icon: icono })
     .addTo(map)
