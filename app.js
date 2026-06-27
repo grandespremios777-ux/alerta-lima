@@ -27,7 +27,7 @@ const tiposAlerta = {
   "Manifestación": { emoji: "📢", color: "#ff9800" },
   "Robo": { emoji: "🚨", color: "#d10000" },
   "Choque": { emoji: "💥", color: "#e53935" },
-  "Accidente": { emoji: "🚑", color: "#c62828" },
+  "Atunes": { icono: "img/casco-azul.png", color: "#1976d2" },
   "Calle cerrada": { emoji: "⛔", color: "#424242" },
   "Zona peligrosa": { emoji: "⚠️", color: "#fbc02d" }
 };
@@ -59,6 +59,19 @@ function obtenerEstadoAlerta(confirmaciones, negativos) {
 function crearIconoAlerta(tipo, confirmaciones = 0, negativos = 0) {
   const data = tiposAlerta[tipo] || { emoji: "⚠️", color: "#d10000" };
   const estado = obtenerEstadoAlerta(confirmaciones, negativos);
+
+  if (data.icono) {
+    return L.divIcon({
+      className: 'icono-alerta-img',
+      html: `
+        <div style="border-color:${estado.color}" class="burbuja-alerta-img">
+          <img src="${data.icono}" alt="${tipo}" />
+        </div>
+      `,
+      iconSize: [52, 52],
+      iconAnchor: [26, 26]
+    });
+  }
 
   return L.divIcon({
     className: 'icono-alerta',
