@@ -14,6 +14,7 @@ let ubicacionSeleccionada = null;
 let marcadorUsuario = null;
 let marcadorSeleccion = null;
 let siguiendoUsuario = true;
+let temporizadorReencuadre = null;
 
 const marcadoresAlertas = {};
 
@@ -219,7 +220,7 @@ function actualizarUbicacionUsuario(posicion) {
       .addTo(map)
       .bindPopup('Tu ubicación');
 
-    map.setView(nuevaUbicacion, 16);
+    map.setView(nuevaUbicacion, 15);
   } else {
     marcadorUsuario.setLatLng(nuevaUbicacion);
 
@@ -231,6 +232,17 @@ function actualizarUbicacionUsuario(posicion) {
 
 map.on('dragstart zoomstart', function() {
   siguiendoUsuario = false;
+
+  clearTimeout(temporizadorReencuadre);
+
+  temporizadorReencuadre = setTimeout(() => {
+    siguiendoUsuario = true;
+
+    if (marcadorUsuario) {
+      const ubicacionActual = marcadorUsuario.getLatLng();
+      map.setView(ubicacionActual, 15);
+    }
+  }, 4000);
 });
 
 function errorUbicacion() {
@@ -274,7 +286,7 @@ document.getElementById('btn-centrar').addEventListener('click', function() {
 
   if (marcadorUsuario) {
     const ubicacionActual = marcadorUsuario.getLatLng();
-    map.setView(ubicacionActual, 16);
+    map.setView(ubicacionActual, 15);
   } else {
     alert('Todavía no se detectó tu ubicación.');
   }
@@ -382,3 +394,25 @@ db.collection("alertas").onSnapshot((snapshot) => {
     }
   });
 });
+
+
+let wakeLock = null;
+
+async function activarPantallaSiempreEncendida() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      console.log('Pantalla siempre encendida activada');
+    }
+  } catch (error) {
+    console.log('No se pudo activar pantalla siempre encendida:', error);
+  }
+}
+
+document.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    await activarPantallaSiempreEncendida();
+  }
+});
+
+activarPantallaSiempreEncendida();
