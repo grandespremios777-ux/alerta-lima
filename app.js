@@ -4,6 +4,14 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
 
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(() => {
+    console.log("Persistencia de sesión activada");
+  })
+  .catch((error) => {
+    console.error("Error configurando persistencia:", error);
+  });
+
 // Mapa centrado en Lima
 const map = L.map('map').setView([-12.0464, -77.0428], 13);
 
@@ -405,18 +413,23 @@ document.getElementById('cerrar').addEventListener('click', function() {
 document.getElementById('btn-login-google').addEventListener('click', function() {
   const esLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
 
-  if (esLocal) {
-    auth.signInWithPopup(providerGoogle)
-      .then((resultado) => {
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(() => {
+      if (esLocal) {
+        return auth.signInWithPopup(providerGoogle);
+      } else {
+        return auth.signInWithRedirect(providerGoogle);
+      }
+    })
+    .then((resultado) => {
+      if (resultado && resultado.user) {
         crearOActualizarUsuario(resultado.user);
-      })
-      .catch((error) => {
-        console.error("Error iniciando sesión con popup:", error);
-        alert("No se pudo iniciar sesión con Google.");
-      });
-  } else {
-    auth.signInWithRedirect(providerGoogle);
-  }
+      }
+    })
+    .catch((error) => {
+      console.error("Error iniciando sesión:", error);
+      alert("No se pudo iniciar sesión con Google.");
+    });
 });
 
 auth.getRedirectResult()
