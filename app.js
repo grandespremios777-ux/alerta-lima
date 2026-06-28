@@ -13,6 +13,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let ubicacionSeleccionada = null;
 let marcadorUsuario = null;
 let marcadorSeleccion = null;
+let siguiendoUsuario = true;
 
 const marcadoresAlertas = {};
 
@@ -221,8 +222,16 @@ function actualizarUbicacionUsuario(posicion) {
     map.setView(nuevaUbicacion, 16);
   } else {
     marcadorUsuario.setLatLng(nuevaUbicacion);
+
+    if (siguiendoUsuario) {
+      map.panTo(nuevaUbicacion);
+    }
   }
 }
+
+map.on('dragstart zoomstart', function() {
+  siguiendoUsuario = false;
+});
 
 function errorUbicacion() {
   console.log('No se pudo obtener la ubicación del usuario.');
@@ -258,6 +267,17 @@ document.getElementById('btn-alerta').addEventListener('click', function() {
 
 document.getElementById('cerrar').addEventListener('click', function() {
   document.getElementById('panel-alerta').classList.add('oculto');
+});
+
+document.getElementById('btn-centrar').addEventListener('click', function() {
+  siguiendoUsuario = true;
+
+  if (marcadorUsuario) {
+    const ubicacionActual = marcadorUsuario.getLatLng();
+    map.setView(ubicacionActual, 16);
+  } else {
+    alert('Todavía no se detectó tu ubicación.');
+  }
 });
 
 document.getElementById('publicar').addEventListener('click', function() {

@@ -275,3 +275,23 @@ textarea {
   object-fit: contain;
   filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
 }
+
+#btn-centrar {
+  position: fixed;
+  right: 18px;
+  bottom: 95px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  color: #111;
+  font-size: 24px;
+  font-weight: 900;
+  z-index: 1000;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+}
+
+#btn-centrar:active {
+  transform: scale(0.94);
+}
