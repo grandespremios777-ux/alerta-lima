@@ -403,16 +403,33 @@ document.getElementById('cerrar').addEventListener('click', function() {
 });
 
 document.getElementById('btn-login-google').addEventListener('click', function() {
-  auth.signInWithPopup(providerGoogle)
-    .then((resultado) => {
-      const usuario = resultado.user;
-      crearOActualizarUsuario(usuario);
-    })
-    .catch((error) => {
-      console.error("Error iniciando sesión:", error);
-      alert("No se pudo iniciar sesión con Google.");
-    });
+  const esLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+
+  if (esLocal) {
+    auth.signInWithPopup(providerGoogle)
+      .then((resultado) => {
+        crearOActualizarUsuario(resultado.user);
+      })
+      .catch((error) => {
+        console.error("Error iniciando sesión con popup:", error);
+        alert("No se pudo iniciar sesión con Google.");
+      });
+  } else {
+    auth.signInWithRedirect(providerGoogle);
+  }
 });
+
+auth.getRedirectResult()
+  .then((resultado) => {
+    if (resultado.user) {
+      crearOActualizarUsuario(resultado.user);
+      console.log("Login con Google completado por redirect");
+    }
+  })
+  .catch((error) => {
+    console.error("Error en redirect Google:", error);
+    alert("No se pudo iniciar sesión con Google.");
+  });
 
 document.getElementById('btn-logout').addEventListener('click', function() {
   auth.signOut()
