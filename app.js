@@ -1,6 +1,8 @@
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 // Mapa centrado en Lima
 const map = L.map('map').setView([-12.0464, -77.0428], 13);
@@ -15,6 +17,10 @@ let marcadorUsuario = null;
 let marcadorSeleccion = null;
 let siguiendoUsuario = true;
 let temporizadorReencuadre = null;
+let usuarioActual = null;
+let perfilUsuario = null;
+let ubicacionUsuarioActual = null;
+
 
 const marcadoresAlertas = {};
 
@@ -87,6 +93,33 @@ function crearIconoAlerta(tipo, confirmaciones = 0, negativos = 0) {
   });
 }
 
+function calcularDistanciaMetros(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const rad = Math.PI / 180;
+
+  const dLat = (lat2 - lat1) * rad;
+  const dLng = (lng2 - lng1) * rad;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * rad) *
+    Math.cos(lat2 * rad) *
+    Math.sin(dLng / 2) *
+    Math.sin(dLng / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
+function formatearDistancia(metros) {
+  if (metros < 1000) {
+    return `${Math.round(metros)} m`;
+  }
+
+  return `${(metros / 1000).toFixed(1)} km`;
+}
+
 function obtenerFechaVencimiento(alerta) {
   if (alerta.expiresAt && alerta.expiresAt.toDate) {
     return alerta.expiresAt.toDate();
@@ -99,6 +132,28 @@ function obtenerFechaVencimiento(alerta) {
   return null;
 }
 
+function formatearHoraComentario(hora) {
+  if (!hora) return "Ahora";
+
+  let fechaComentario;
+
+  if (hora.toDate) {
+    fechaComentario = hora.toDate();
+  } else {
+    fechaComentario = new Date(hora);
+  }
+
+  const diferencia = Date.now() - fechaComentario.getTime();
+  const minutos = Math.floor(diferencia / (1000 * 60));
+  const horas = Math.floor(minutos / 60);
+
+  if (minutos < 1) return "Ahora";
+  if (minutos < 60) return `Hace ${minutos} min`;
+  if (horas < 24) return `Hace ${horas} h`;
+
+  return fechaComentario.toLocaleDateString();
+}
+
 function crearPopupAlerta(id, alerta) {
   const vence = obtenerFechaVencimiento(alerta);
   const comentarios = alerta.comentarios || [];
@@ -106,14 +161,43 @@ function crearPopupAlerta(id, alerta) {
   const negativos = alerta.negativos || 0;
   const estado = obtenerEstadoAlerta(confirmaciones, negativos);
 
-  const listaComentarios = comentarios.length
-    ? comentarios.map(c => `<li>${c.texto || c}</li>`).join('')
-    : '<li>Aún no hay comentarios</li>';
+  let distanciaTexto = "Ubicación no disponible";
+
+if (ubicacionUsuarioActual) {
+  const distancia = calcularDistanciaMetros(
+    ubicacionUsuarioActual.lat,
+    ubicacionUsuarioActual.lng,
+    alerta.lat,
+    alerta.lng
+  );
+
+  distanciaTexto = formatearDistancia(distancia);
+}
+
+ const listaComentarios = comentarios.length
+  ? comentarios.map(c => `
+      <li class="comentario-item">
+        <div class="comentario-header">
+          ${c.foto ? `<img src="${c.foto}" class="comentario-foto">` : ''}
+          <div>
+            <strong>${c.nombre || "Usuario"}</strong><br>
+            <small>${formatearHoraComentario(c.hora)}</small>
+          </div>
+        </div>
+        <p>${c.texto || c}</p>
+      </li>
+    `).join('')
+  : '<li>Aún no hay comentarios</li>';
 
   return `
     <div class="popup-alerta">
       <strong>${alerta.tipo}</strong><br>
       <p>${alerta.descripcion}</p>
+
+      <div style="display:flex; align-items:center; gap:7px; margin:8px 0;">
+  ${alerta.creadoPorFoto ? `<img src="${alerta.creadoPorFoto}" style="width:24px; height:24px; border-radius:50%;">` : ''}
+  <small>Creado por ${alerta.creadoPorNombre || "Usuario"}</small>
+</div>
 
       <div style="margin:8px 0; padding:6px; border-radius:8px; background:${estado.color}; color:white;">
         ${estado.emoji} ${estado.texto}
@@ -121,6 +205,7 @@ function crearPopupAlerta(id, alerta) {
 
       <small>✅ Sigue activo: ${confirmaciones}</small><br>
       <small>⚠️ Ya pasó / falso: ${negativos}</small><br>
+      <small>📍 A ${distanciaTexto} de ti</small><br>
       <small>Se borra: ${vence ? vence.toLocaleTimeString() : 'pronto'}</small>
 
       <hr>
@@ -184,6 +269,12 @@ window.negarAlerta = function(id) {
 };
 
 window.comentarAlerta = function(id) {
+
+  if (!usuarioActual) {
+    alert("Debes iniciar sesión.");
+    return;
+  }
+
   const input = document.getElementById(`comentario-${id}`);
 
   if (!input) return;
@@ -191,29 +282,58 @@ window.comentarAlerta = function(id) {
   const texto = input.value.trim();
 
   if (texto.length < 2) {
-    alert('Escribe un comentario más claro.');
+    alert("Escribe un comentario más claro.");
     return;
   }
 
   db.collection("alertas").doc(id).update({
+
     comentarios: firebase.firestore.FieldValue.arrayUnion({
+
       texto: texto,
-      createdAt: new Date()
+
+      uid: usuarioActual.uid,
+
+      nombre: usuarioActual.displayName || "Usuario",
+
+      foto: usuarioActual.photoURL || "",
+
+     hora: new Date()
+
     })
+
   })
+
   .then(() => {
-    input.value = '';
+
+    input.value = "";
+
   })
+
   .catch((error) => {
-    console.error("Error agregando comentario:", error);
+
+    console.error(error);
+
     alert("No se pudo agregar el comentario.");
+
   });
+
 };
 
 function actualizarUbicacionUsuario(posicion) {
   const lat = posicion.coords.latitude;
   const lng = posicion.coords.longitude;
   const nuevaUbicacion = [lat, lng];
+
+  const ubicacionNueva = L.latLng(lat, lng);
+
+  let distanciaMovimiento = 0;
+
+  if (ubicacionUsuarioActual) {
+    distanciaMovimiento = ubicacionUsuarioActual.distanceTo(ubicacionNueva);
+  }
+
+  ubicacionUsuarioActual = ubicacionNueva;
 
   if (!marcadorUsuario) {
     marcadorUsuario = L.marker(nuevaUbicacion, { icon: iconoAuto })
@@ -224,7 +344,8 @@ function actualizarUbicacionUsuario(posicion) {
   } else {
     marcadorUsuario.setLatLng(nuevaUbicacion);
 
-    if (siguiendoUsuario) {
+    if (siguiendoUsuario || distanciaMovimiento > 20) {
+      siguiendoUsuario = true;
       map.panTo(nuevaUbicacion);
     }
   }
@@ -242,7 +363,7 @@ map.on('dragstart zoomstart', function() {
       const ubicacionActual = marcadorUsuario.getLatLng();
       map.setView(ubicacionActual, 15);
     }
-  }, 4000);
+  }, 10000);
 });
 
 function errorUbicacion() {
@@ -281,6 +402,91 @@ document.getElementById('cerrar').addEventListener('click', function() {
   document.getElementById('panel-alerta').classList.add('oculto');
 });
 
+document.getElementById('btn-login-google').addEventListener('click', function() {
+  auth.signInWithPopup(providerGoogle)
+    .then((resultado) => {
+      const usuario = resultado.user;
+      crearOActualizarUsuario(usuario);
+    })
+    .catch((error) => {
+      console.error("Error iniciando sesión:", error);
+      alert("No se pudo iniciar sesión con Google.");
+    });
+});
+
+document.getElementById('btn-logout').addEventListener('click', function() {
+  auth.signOut()
+    .then(() => {
+      console.log("Sesión cerrada");
+    })
+    .catch((error) => {
+      console.error("Error cerrando sesión:", error);
+    });
+});
+
+function crearOActualizarUsuario(usuario) {
+  if (!usuario) return;
+
+  const referenciaUsuario = db.collection("usuarios").doc(usuario.uid);
+
+  referenciaUsuario.get().then((doc) => {
+    if (!doc.exists) {
+      referenciaUsuario.set({
+        nombre: usuario.displayName || "",
+        email: usuario.email || "",
+        foto: usuario.photoURL || "",
+        premium: false,
+        rol: "usuario",
+        estado: "activo",
+        vencePremium: null,
+        creado: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } else {
+      referenciaUsuario.update({
+        nombre: usuario.displayName || "",
+        email: usuario.email || "",
+        foto: usuario.photoURL || ""
+      });
+    }
+  });
+}
+
+auth.onAuthStateChanged(function(usuario) {
+  const btnLogin = document.getElementById('btn-login-google');
+  const usuarioInfo = document.getElementById('usuario-info');
+  const usuarioFoto = document.getElementById('usuario-foto');
+  const usuarioNombre = document.getElementById('usuario-nombre');
+
+  if (usuario) {
+    usuarioActual = usuario;
+
+    crearOActualizarUsuario(usuario);
+
+    db.collection("usuarios").doc(usuario.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          perfilUsuario = doc.data();
+          console.log("Perfil cargado:", perfilUsuario);
+        }
+      });
+
+    btnLogin.classList.add('oculto');
+    usuarioInfo.classList.remove('oculto');
+
+    usuarioFoto.src = usuario.photoURL || "";
+    usuarioNombre.textContent = usuario.displayName || "Usuario";
+  } else {
+    usuarioActual = null;
+    perfilUsuario = null;
+
+    btnLogin.classList.remove('oculto');
+    usuarioInfo.classList.add('oculto');
+
+    usuarioFoto.src = "";
+    usuarioNombre.textContent = "";
+  }
+});
+
 document.getElementById('btn-centrar').addEventListener('click', function() {
   siguiendoUsuario = true;
 
@@ -313,16 +519,21 @@ document.getElementById('publicar').addEventListener('click', function() {
   const vence = new Date(ahora.getTime() + 2 * 60 * 60 * 1000);
 
   db.collection("alertas").add({
-    tipo: tipo,
-    descripcion: descripcion,
-    lat: latAlerta,
-    lng: lngAlerta,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    expiresAt: vence,
-    comentarios: [],
-    confirmaciones: 0,
-    negativos: 0
-  })
+  tipo: tipo,
+  descripcion: descripcion,
+  lat: latAlerta,
+  lng: lngAlerta,
+  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  expiresAt: vence,
+  comentarios: [],
+  confirmaciones: 0,
+  negativos: 0,
+
+  creadoPorUid: usuarioActual ? usuarioActual.uid : null,
+  creadoPorNombre: usuarioActual ? usuarioActual.displayName : "Usuario",
+  creadoPorFoto: usuarioActual ? usuarioActual.photoURL : ""
+})
+
   .then(() => {
     console.log("Alerta guardada en Firebase");
 

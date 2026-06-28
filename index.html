@@ -16,6 +16,16 @@
 
   <button id="btn-centrar">📍</button>
 
+  <div id="panel-usuario">
+  <button id="btn-login-google">Entrar con Google</button>
+
+  <div id="usuario-info" class="oculto">
+    <img id="usuario-foto" src="" alt="Usuario">
+    <span id="usuario-nombre"></span>
+    <button id="btn-logout">Salir</button>
+  </div>
+</div>
+
   <div id="panel-alerta" class="oculto">
     <h2>Nueva alerta</h2>
 
@@ -34,10 +44,11 @@
     <button id="cerrar">Cancelar</button>
   </div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+ <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="firebase-config.js"></script>
 
 <script src="app.js"></script>

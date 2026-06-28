@@ -295,3 +295,81 @@ textarea {
 #btn-centrar:active {
   transform: scale(0.94);
 }
+
+
+#panel-usuario {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1000;
+}
+
+#btn-login-google {
+  background: white;
+  color: #111;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+#usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 7px 10px;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+#usuario-foto {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+#usuario-nombre {
+  font-size: 13px;
+  font-weight: 800;
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#btn-logout {
+  background: #eeeeee;
+  color: #111;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.comentario-item {
+  list-style: none;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+
+.comentario-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.comentario-foto {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.comentario-item p {
+  margin: 0;
+  font-size: 13px;
+}
