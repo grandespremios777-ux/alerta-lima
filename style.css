@@ -260,7 +260,7 @@ textarea {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #1976d2;
+  background: #ffffff;
   border: 4px solid white;
   box-shadow: 0 8px 18px rgba(0,0,0,0.42);
   display: flex;
@@ -372,4 +372,1976 @@ textarea {
 .comentario-item p {
   margin: 0;
   font-size: 13px;
+}
+
+#usuario-info.usuario-premium {
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 16px;
+
+  background:
+    linear-gradient(135deg, #fffdf4, #ffffff) padding-box,
+    linear-gradient(
+      120deg,
+      #fff4a8 0%,
+      #f5b400 28%,
+      #ffe56d 52%,
+      #f39800 74%,
+      #fff0a0 100%
+    ) border-box;
+
+  box-shadow:
+    0 4px 14px rgba(245, 180, 0, 0.28),
+    0 0 18px rgba(255, 205, 45, 0.34),
+    0 0 30px rgba(255, 188, 0, 0.16);
+
+  animation: resplandor-premium 2.8s ease-in-out infinite;
+}
+
+.etiqueta-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 5px;
+  padding: 3px 7px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #fff3a2, #f7b500, #ffdf57);
+  color: #3c2900;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  white-space: nowrap;
+
+  border: 1px solid rgba(183, 119, 0, 0.35);
+
+  box-shadow:
+    0 2px 5px rgba(209, 146, 0, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+@keyframes resplandor-premium {
+  0%,
+  100% {
+    box-shadow:
+      0 4px 14px rgba(245, 180, 0, 0.25),
+      0 0 16px rgba(255, 205, 45, 0.28),
+      0 0 28px rgba(255, 188, 0, 0.12);
+  }
+
+  50% {
+    box-shadow:
+      0 5px 17px rgba(245, 180, 0, 0.38),
+      0 0 23px rgba(255, 210, 50, 0.45),
+      0 0 38px rgba(255, 188, 0, 0.22);
+  }
+}
+
+/* =========================================
+   ALERTA CREADA POR USUARIO PREMIUM
+   Marco externo dorado + tarjeta blanca interna
+   ========================================= */
+
+/* El popup Premium quita el marco blanco de Leaflet para mostrar
+   el marco dorado como borde exterior real. */
+.leaflet-popup.popup-hoja-premium .leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  overflow: visible !important;
+  border-radius: 24px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup.popup-hoja-premium .leaflet-popup-content {
+  width: 300px !important;
+  min-width: 0 !important;
+  max-width: calc(100vw - 54px) !important;
+  margin: 0 !important;
+}
+
+.leaflet-popup.popup-hoja-premium .leaflet-popup-tip {
+  width: 18px !important;
+  height: 18px !important;
+  background: linear-gradient(135deg, #fff4ae, #f4b300, #ffd85f) !important;
+  box-shadow: 2px 2px 8px rgba(198, 137, 0, 0.22) !important;
+}
+
+/* Marco exterior. Aquí vive el dorado; el contenido interno queda blanco. */
+.popup-alerta-marco.popup-alerta-marco-premium {
+  position: relative;
+  padding: 3px !important;
+  border-radius: 22px !important;
+  overflow: visible !important;
+
+  background: linear-gradient(
+    135deg,
+    #fff4aa 0%,
+    #f5b300 24%,
+    #ffe37a 48%,
+    #df9200 74%,
+    #fff1a8 100%
+  ) !important;
+
+  box-shadow:
+    0 0 0 1px rgba(228, 167, 0, 0.48),
+    0 0 15px rgba(255, 202, 38, 0.38),
+    0 0 30px rgba(255, 181, 0, 0.20),
+    0 12px 26px rgba(153, 103, 0, 0.24) !important;
+
+  animation: brillo-marco-alerta-premium 3s ease-in-out infinite;
+}
+
+/* Este contenedor es la tarjeta blanca: evita que el dorado invada el interior. */
+.popup-alerta-marco.popup-alerta-marco-premium .popup-alerta {
+  overflow: hidden !important;
+  padding: 14px !important;
+  border-radius: 19px !important;
+  background: #ffffff !important;
+}
+
+/* Perfil compacto del creador */
+.popup-alerta .creador-alerta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  margin: 10px 0 !important;
+  padding: 8px 9px !important;
+  border-radius: 12px !important;
+}
+
+.popup-alerta .creador-alerta-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 248, 218, 0.98),
+    rgba(255, 255, 255, 0.98)
+  ) !important;
+
+  border: 1px solid rgba(234, 174, 0, 0.48) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0 3px 9px rgba(217, 155, 0, 0.15) !important;
+}
+
+.popup-alerta .creador-alerta img {
+  display: block !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  object-fit: cover !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  border: 2px solid #f0b400 !important;
+  background: #0a5ba8 !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 243, 180, 0.95),
+    0 2px 7px rgba(211, 147, 0, 0.30) !important;
+}
+
+.popup-alerta .creador-alerta-texto {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  line-height: 1.12 !important;
+}
+
+.popup-alerta .creado-por-label {
+  font-size: 10px !important;
+  color: #7b6947 !important;
+}
+
+.popup-alerta .creador-alerta-nombre {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: #4c3300 !important;
+}
+
+.popup-alerta .badge-creador-premium {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  margin-left: 3px !important;
+  padding: 4px 7px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(178, 116, 0, 0.34) !important;
+  background: linear-gradient(135deg, #fff2a2, #f7bf27, #ffdf60) !important;
+  color: #4a3000 !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.32px !important;
+  white-space: nowrap !important;
+  box-shadow:
+    0 2px 5px rgba(222, 154, 0, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.72) !important;
+}
+
+@keyframes brillo-marco-alerta-premium {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(228, 167, 0, 0.42),
+      0 0 13px rgba(255, 202, 38, 0.31),
+      0 0 26px rgba(255, 181, 0, 0.16),
+      0 12px 26px rgba(153, 103, 0, 0.22);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(235, 178, 0, 0.60),
+      0 0 20px rgba(255, 211, 68, 0.46),
+      0 0 37px rgba(255, 181, 0, 0.24),
+      0 14px 30px rgba(153, 103, 0, 0.28);
+  }
+}
+
+
+/* =========================================
+   MARCO EXTERIOR PARA ALERTAS PREMIUM
+   No modifica el interior de la tarjeta
+   ========================================= */
+
+/* El marco dorado vive en el contenedor exterior de Leaflet */
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content-wrapper {
+  padding: 3px !important;
+  border-radius: 23px !important;
+
+  background: linear-gradient(
+    135deg,
+    #fff6bc 0%,
+    #f4b400 24%,
+    #ffe77a 48%,
+    #d88f00 74%,
+    #fff2ad 100%
+  ) !important;
+
+  box-shadow:
+    0 0 0 1px rgba(236, 180, 20, 0.45),
+    0 0 14px rgba(255, 203, 30, 0.28),
+    0 0 30px rgba(255, 185, 0, 0.14),
+    0 14px 30px rgba(0, 0, 0, 0.20) !important;
+
+  animation: halo-marco-alerta-premium 2.8s ease-in-out infinite;
+}
+
+/* El contenido vuelve a ser una tarjeta blanca independiente */
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content {
+  margin: 0 !important;
+  min-width: 230px !important;
+}
+
+/* Parte blanca interna: aquí no debe entrar el dorado */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta.popup-alerta-premium {
+  padding: 14px !important;
+  border: none !important;
+  border-radius: 19px !important;
+
+  background: #ffffff !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+/* Flecha inferior Premium */
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-tip {
+  background: #f4b400 !important;
+
+  box-shadow:
+    3px 3px 9px rgba(193, 132, 0, 0.22) !important;
+}
+
+/* Evita que vuelva a aparecer un borde interno antiguo */
+.popup-alerta.popup-alerta-premium::before {
+  display: none !important;
+}
+
+/* Resplandor exterior muy ligero */
+@keyframes halo-marco-alerta-premium {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(236, 180, 20, 0.38),
+      0 0 12px rgba(255, 203, 30, 0.22),
+      0 0 25px rgba(255, 185, 0, 0.10),
+      0 14px 30px rgba(0, 0, 0, 0.20);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(236, 180, 20, 0.55),
+      0 0 19px rgba(255, 210, 55, 0.36),
+      0 0 34px rgba(255, 185, 0, 0.17),
+      0 15px 32px rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* =========================================
+   TARJETA PREMIUM - MODO COMPACTO
+   Pegar al final del style.css
+   ========================================= */
+
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content-wrapper {
+  max-width: 194px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content {
+  width: 184px !important;
+  min-width: 184px !important;
+  margin: 0 !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta.popup-alerta-premium {
+  width: 184px !important;
+  max-height: 285px !important;
+
+  padding: 10px !important;
+  overflow-y: auto !important;
+
+  scrollbar-width: thin;
+  scrollbar-color: #dba400 transparent;
+}
+
+/* Título de alerta */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta strong {
+  font-size: 15px !important;
+}
+
+/* Texto general */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta p {
+  margin: 5px 0 7px !important;
+  font-size: 12px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta small {
+  font-size: 10px !important;
+}
+
+/* Separadores */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta hr {
+  margin: 7px 0 !important;
+}
+
+/* Perfil del creador */
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta {
+  gap: 6px !important;
+  margin: 6px 0 !important;
+  padding: 6px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta img {
+  width: 28px !important;
+  min-width: 28px !important;
+  max-width: 28px !important;
+
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creado-por-label {
+  font-size: 8px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta-nombre {
+  max-width: 72px !important;
+  font-size: 11px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .badge-creador-premium {
+  padding: 3px 5px !important;
+  font-size: 7px !important;
+}
+
+/* Botones de voto y comentar */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta button {
+  padding: 6px !important;
+  font-size: 11px !important;
+}
+
+/* Campo de comentario */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta input {
+  padding: 7px !important;
+  margin-top: 5px !important;
+  margin-bottom: 4px !important;
+  font-size: 11px !important;
+}
+
+/* Comentarios */
+.leaflet-popup:has(.popup-alerta-premium) .lista-comentarios {
+  max-height: 58px !important;
+  margin: 5px 0 !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .lista-comentarios li {
+  font-size: 11px !important;
+}
+
+/* =========================================
+   TARJETA PREMIUM COMPACTA SIN SCROLL
+   ========================================= */
+
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content-wrapper {
+  max-width: none !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .leaflet-popup-content {
+  width: 230px !important;
+  min-width: 230px !important;
+  margin: 0 !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta.popup-alerta-premium {
+  width: 230px !important;
+  max-height: none !important;
+
+  padding: 12px !important;
+
+  overflow: visible !important;
+  scrollbar-width: auto !important;
+}
+
+/* Recupera un tamaño legible, sin volver a ser gigante */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta strong {
+  font-size: 16px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta p {
+  margin: 6px 0 8px !important;
+  font-size: 12px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta small {
+  font-size: 11px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta hr {
+  margin: 8px 0 !important;
+}
+
+/* Perfil del creador: compacto pero entendible */
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta {
+  gap: 7px !important;
+  margin: 7px 0 !important;
+  padding: 7px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta img {
+  width: 30px !important;
+  min-width: 30px !important;
+  max-width: 30px !important;
+
+  height: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creado-por-label {
+  font-size: 9px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .creador-alerta-nombre {
+  max-width: 95px !important;
+  font-size: 12px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .badge-creador-premium {
+  padding: 3px 6px !important;
+  font-size: 8px !important;
+}
+
+/* Botones cómodos sin ocupar demasiado */
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta button {
+  padding: 7px !important;
+  font-size: 12px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta input {
+  padding: 8px !important;
+  margin-top: 6px !important;
+  margin-bottom: 5px !important;
+  font-size: 12px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .lista-comentarios {
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 6px 0 !important;
+}
+
+/* X de cierre más grande y fácil de tocar */
+.leaflet-popup-close-button {
+  width: 32px !important;
+  height: 32px !important;
+
+  top: 3px !important;
+  right: 3px !important;
+
+  line-height: 29px !important;
+  text-align: center !important;
+
+  font-size: 25px !important;
+  font-weight: 700 !important;
+  color: #5a5a5a !important;
+
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+
+  z-index: 20 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #b00000 !important;
+  background: #fff0f0 !important;
+}
+
+
+/* Botones verde y rojo en una sola fila dentro de alerta Premium */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div,
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div {
+  display: inline-flex !important;
+  width: calc(50% - 4px) !important;
+  vertical-align: top !important;
+  margin: 0 !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div {
+  margin-left: 4px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div button,
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div button {
+  flex: 1 !important;
+  padding: 7px 3px !important;
+  font-size: 10px !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+}
+
+/* =========================================
+   BOTONES DE VOTO EN COLUMNA DERECHA
+   Dentro del espacio libre de alerta Premium
+   ========================================= */
+
+/* Los datos quedan en la columna izquierda */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > small {
+  display: block !important;
+  width: 118px !important;
+  line-height: 1.35 !important;
+  white-space: nowrap !important;
+}
+
+/* Oculta la primera línea divisoria: ya no hace falta */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type {
+  display: none !important;
+}
+
+/* Botón verde: se mueve al lado derecho */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div {
+  position: absolute !important;
+  top: 168px !important;
+  right: 11px !important;
+
+  display: flex !important;
+  width: 106px !important;
+  margin: 0 !important;
+}
+
+/* Botón rojo: debajo del verde */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div {
+  position: absolute !important;
+  top: 207px !important;
+  right: 11px !important;
+
+  display: flex !important;
+  width: 106px !important;
+  margin: 0 !important;
+}
+
+/* Tamaño compacto para los dos botones */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div button,
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div button {
+  width: 100% !important;
+  min-height: 31px !important;
+  padding: 5px 4px !important;
+
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+/* Baja Comentarios después del espacio ocupado por los botones */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div + hr {
+  margin-top: 83px !important;
+  margin-bottom: 8px !important;
+}
+
+/* =========================================
+   COMPACTAR CONTENIDO INTERNO DE ALERTA PREMIUM
+   Sin scroll y sin mover el marco exterior
+   ========================================= */
+
+/* Quita los saltos de línea duplicados de los datos */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > small + br {
+  display: none !important;
+}
+
+/* Datos de estado más juntos */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > small {
+  display: block !important;
+  width: 118px !important;
+
+  margin: 0 0 4px !important;
+  line-height: 1.2 !important;
+
+  font-size: 11px !important;
+}
+
+/* Mantiene los botones dentro de la zona derecha */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div {
+  top: 158px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div {
+  top: 196px !important;
+}
+
+/* Quita el gran espacio vacío antes de Comentarios */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div + hr {
+  margin-top: 12px !important;
+  margin-bottom: 7px !important;
+}
+
+/* Comentarios y campo más juntos */
+.leaflet-popup:has(.popup-alerta-premium) .lista-comentarios {
+  margin: 5px 0 !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta input {
+  margin-top: 5px !important;
+  margin-bottom: 4px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium) .popup-alerta p {
+  margin-top: 5px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Botones de voto Premium: más angostos */
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div,
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div {
+  width: 92px !important;
+  right: 10px !important;
+}
+
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div button,
+.leaflet-popup:has(.popup-alerta-premium)
+.popup-alerta.popup-alerta-premium > hr:first-of-type + div + div button {
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  font-size: 9px !important;
+}
+
+
+/* =========================================
+   MENÚ DE USUARIO Y PLANES
+   ========================================= */
+
+#btn-menu-usuario {
+  width: 31px;
+  height: 31px;
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f2f2f2;
+  color: #222;
+
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1;
+
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+#btn-menu-usuario:active {
+  transform: scale(0.93);
+}
+
+#overlay-menu {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(10, 10, 10, 0.22);
+  backdrop-filter: blur(2px);
+
+  z-index: 1800;
+}
+
+.panel-cuenta {
+  position: fixed;
+  top: 82px;
+  left: 18px;
+
+  width: min(350px, calc(100vw - 36px));
+  max-height: calc(100vh - 105px);
+  overflow-y: auto;
+
+  padding: 14px;
+
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+
+  z-index: 1801;
+  animation: aparecer-menu-cuenta 0.18s ease;
+}
+
+@keyframes aparecer-menu-cuenta {
+  from {
+    transform: translateY(-8px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.panel-cuenta-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-cuenta-subtitulo {
+  display: block;
+
+  color: #8b8b8b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+}
+
+.panel-cuenta h3 {
+  margin: 2px 0 0;
+
+  color: #161616;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.btn-cerrar-panel {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f0f0f0;
+  color: #333;
+
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-cerrar-panel:active {
+  transform: scale(0.92);
+}
+
+.menu-opcion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 13px;
+
+  border: 1px solid #ececec;
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #ffffff, #fffdf5);
+  color: #202020;
+
+  text-align: left;
+  cursor: pointer;
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.05);
+}
+
+.menu-opcion:active {
+  transform: scale(0.98);
+}
+
+.menu-opcion-icono {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #fff1a2, #f8be20);
+  font-size: 19px;
+}
+
+.menu-opcion-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.menu-opcion-texto strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.menu-opcion-texto small {
+  color: #737373;
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.menu-opcion-flecha {
+  color: #d39b00;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.btn-volver-menu {
+  padding: 7px 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #eeeeee;
+  color: #333;
+
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.planes-titulo {
+  margin-bottom: 12px;
+}
+
+.planes-titulo > span {
+  color: #b77c00;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.planes-titulo h3 {
+  margin: 3px 0 4px;
+  font-size: 23px;
+}
+
+.planes-titulo p {
+  margin: 0;
+  color: #666;
+  font-size: 12px;
+}
+
+.plan-card {
+  position: relative;
+  margin-top: 12px;
+  padding: 14px;
+
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.plan-gratis {
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+}
+
+.plan-premium {
+  border: 1px solid rgba(225, 160, 0, 0.52);
+  background: linear-gradient(135deg, #fffdf4, #ffffff);
+  box-shadow: 0 7px 18px rgba(232, 174, 0, 0.16);
+}
+
+.plan-premium-brillo {
+  position: absolute;
+  top: -52px;
+  right: -55px;
+
+  width: 145px;
+  height: 145px;
+
+  border-radius: 50%;
+  background: rgba(255, 206, 55, 0.2);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.plan-card-cabecera {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plan-etiqueta,
+.plan-etiqueta-premium {
+  display: inline-block;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.55px;
+}
+
+.plan-etiqueta {
+  color: #737373;
+}
+
+.plan-etiqueta-premium {
+  color: #9e6800;
+}
+
+.plan-card h4 {
+  margin: 3px 0 0;
+  color: #1b1b1b;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.plan-precio {
+  color: #333;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.plan-precios-premium {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.plan-precios-premium strong {
+  color: #ae7100;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.plan-precios-premium span {
+  margin-top: 2px;
+  color: #866330;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.plan-descripcion,
+.plan-anual {
+  position: relative;
+  margin: 9px 0;
+  color: #626262;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.plan-anual {
+  color: #7a5b20;
+}
+
+.beneficios-plan {
+  position: relative;
+  display: grid;
+  gap: 6px;
+
+  margin: 10px 0 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.beneficios-plan li {
+  color: #3e3e3e;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.beneficios-premium li {
+  color: #5c470f;
+}
+
+#btn-activar-premium {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px;
+
+  border: none;
+  border-radius: 13px;
+
+  background: linear-gradient(135deg, #f6c126, #dc9200);
+  color: #3d2900;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  box-shadow: 0 6px 14px rgba(218, 147, 0, 0.22);
+  cursor: pointer;
+}
+
+#btn-activar-premium:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+  #usuario-info {
+    gap: 5px;
+    padding: 6px 7px;
+  }
+
+  #usuario-nombre {
+    max-width: 76px;
+  }
+
+  #btn-menu-usuario {
+    width: 29px;
+    height: 29px;
+  }
+
+  #btn-logout {
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+
+  .etiqueta-premium {
+    margin-left: 0;
+    padding: 3px 5px;
+    font-size: 8px;
+  }
+}
+
+
+/* Votos ordenados para usuarios con Google gratis */
+.popup-alerta .votos-google {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+  margin: 10px 0 !important;
+  clear: both !important;
+  position: static !important;
+}
+
+.popup-alerta .btn-voto-google {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 11px 12px !important;
+  position: static !important;
+  float: none !important;
+  border: none !important;
+  border-radius: 11px !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+.popup-alerta .btn-voto-google.btn-voto-activo {
+  background: #2e7d32 !important;
+}
+
+.popup-alerta .btn-voto-google.btn-voto-paso {
+  background: #d32f2f !important;
+}
+
+
+/* =========================================
+   PRUEBA 1 — SOLO GOOGLE GRATIS
+   Datos a la izquierda + votos a la derecha
+   No modifica visitante ni Premium
+========================================= */
+
+#map .leaflet-popup .popup-alerta.vista-google {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 90px !important;
+  column-gap: 6px !important;
+  align-items: start !important;
+}
+
+/* Por defecto, cada elemento usa todo el ancho */
+#map .leaflet-popup .popup-alerta.vista-google > * {
+  grid-column: 1 / -1 !important;
+}
+
+/* Los saltos antiguos ya no son necesarios dentro de la cuadrícula */
+#map .leaflet-popup .popup-alerta.vista-google > br {
+  display: none !important;
+}
+
+/* Las cuatro líneas de información se quedan a la izquierda */
+#map .leaflet-popup .popup-alerta.vista-google > small {
+  display: block !important;
+  grid-column: 1 !important;
+
+  width: auto !important;
+  margin: 0 0 4px !important;
+
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+/* Quitamos solo la línea anterior a los botones */
+#map .leaflet-popup .popup-alerta.vista-google > hr:first-of-type {
+  display: none !important;
+}
+
+/* Los dos votos ocupan la columna derecha */
+#map .leaflet-popup .popup-alerta.vista-google > .votos-google {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+
+  display: flex !important;
+  grid-column: 2 !important;
+  grid-row: 5 / span 4 !important;
+  align-self: start !important;
+
+  flex-direction: column !important;
+  gap: 7px !important;
+
+  width: 90px !important;
+  margin: 0 !important;
+  z-index: auto !important;
+}
+
+/* Tamaño de los dos botones de voto */
+#map .leaflet-popup .popup-alerta.vista-google .btn-voto-google {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 5px 3px !important;
+
+  border-radius: 9px !important;
+
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+/* El separador de Comentarios baja después de ambos votos */
+#map .leaflet-popup .popup-alerta.vista-google > .votos-google + hr {
+  grid-column: 1 / -1 !important;
+  margin: 8px 0 !important;
+}
+
+/* =========================================
+   PRUEBA 2 — SOLO VISITANTE SIN LOGIN
+   Datos a la izquierda + votos con candado
+   No modifica Google gratis ni Premium
+========================================= */
+
+#map .leaflet-popup .popup-alerta.vista-visitante {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 96px !important;
+  column-gap: 6px !important;
+  align-items: start !important;
+}
+
+/* Por defecto, cada bloque ocupa todo el ancho */
+#map .leaflet-popup .popup-alerta.vista-visitante > * {
+  grid-column: 1 / -1 !important;
+}
+
+/* Oculta los saltos antiguos para que funcione la cuadrícula */
+#map .leaflet-popup .popup-alerta.vista-visitante > br {
+  display: none !important;
+}
+
+/* Los datos quedan a la izquierda */
+#map .leaflet-popup .popup-alerta.vista-visitante > small {
+  display: block !important;
+  grid-column: 1 !important;
+
+  width: auto !important;
+  margin: 0 0 4px !important;
+
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+/* Esconde únicamente la línea antes de los votos */
+#map .leaflet-popup .popup-alerta.vista-visitante > hr:first-of-type {
+  display: none !important;
+}
+
+/* =========================================
+   BOTÓN VERDE — COLUMNA DERECHA
+========================================= */
+
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 5 / span 2 !important;
+
+  width: 96px !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+
+  z-index: auto !important;
+}
+
+/* =========================================
+   BOTÓN ROJO — DEBAJO DEL VERDE
+========================================= */
+
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div + div {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 7 / span 2 !important;
+
+  width: 96px !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+
+  z-index: auto !important;
+}
+
+/* Botones principales de voto */
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div > button[onclick*="confirmarAlerta"],
+
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div + div > button[onclick*="negarAlerta"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 5px 25px 5px 4px !important;
+
+  border-radius: 9px !important;
+
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  line-height: 1.05 !important;
+  white-space: nowrap !important;
+}
+
+/* Candado pequeño dentro de cada botón */
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div > button[onclick*="mostrarInfoLogin"],
+
+#map .leaflet-popup .popup-alerta.vista-visitante
+> hr:first-of-type + div + div > button[onclick*="mostrarInfoLogin"] {
+  position: absolute !important;
+  top: 5px !important;
+  right: 4px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 23px !important;
+  min-width: 23px !important;
+  height: 23px !important;
+  min-height: 23px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: 7px !important;
+
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+/* Ajuste móvil visitante:
+   baja los votos usando la cuadrícula, sin superponer Comentarios */
+@media (max-width: 480px) {
+
+  /* Botón verde */
+  #map .leaflet-popup .popup-alerta.vista-visitante
+  > hr:first-of-type + div {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+
+    grid-column: 2 !important;
+    grid-row: 6 / span 2 !important;
+    align-self: start !important;
+  }
+
+  /* Botón rojo */
+  #map .leaflet-popup .popup-alerta.vista-visitante
+  > hr:first-of-type + div + div {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+
+    grid-column: 2 !important;
+    grid-row: 8 / span 2 !important;
+    align-self: start !important;
+  }
+
+  /* El separador de Comentarios baja después de ambos votos */
+  #map .leaflet-popup .popup-alerta.vista-visitante
+  > hr:first-of-type + div + div + hr {
+    grid-column: 1 / -1 !important;
+    grid-row: 10 !important;
+    margin: 8px 0 !important;
+  }
+}
+
+/* Nombre del usuario dentro de cada comentario */
+.popup-alerta .comentario-header strong {
+  font-size: 7px !important;
+  line-height: 1.1 !important;
+  text-transform: none !important;
+  font-weight: 800 !important;
+}
+
+/* Auto GPS cenital */
+.icono-auto-cenital {
+  background: transparent !important;
+  border: none !important;
+}
+
+.icono-auto-cenital img {
+  display: block;
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+
+  transform-origin: center center;
+transition: transform 0.35s ease;
+
+  filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.35));
+}
+
+/* =========================================
+   SELECTOR PREMIUM — COLOR DEL AUTO GPS
+========================================= */
+
+.selector-color-auto {
+  margin-top: 11px;
+  padding: 12px;
+
+  border: 1px solid rgba(225, 167, 0, 0.35);
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #fffdf4, #ffffff);
+
+  box-shadow: 0 5px 14px rgba(204, 145, 0, 0.10);
+}
+
+.selector-color-auto-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.selector-color-auto-icono {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(135deg, #fff1a2, #f8be20);
+  font-size: 18px;
+}
+
+.selector-color-auto-cabecera > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.selector-color-auto-cabecera strong {
+  color: #272727;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.selector-color-auto-cabecera small {
+  color: #777;
+  font-size: 10px;
+}
+
+.estado-color-auto {
+  padding: 4px 7px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #fff2a2, #f7bf27, #ffdf60);
+  color: #4a3000;
+
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+
+  border: 1px solid rgba(178, 116, 0, 0.30);
+}
+
+.paleta-color-auto {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.boton-color-auto {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+
+  border: 2px solid rgba(0, 0, 0, 0.14);
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boton-color-auto:active {
+  transform: scale(0.90);
+}
+
+.boton-color-auto[data-color="rojo"] {
+  background: #df2626;
+}
+
+.boton-color-auto[data-color="blanco"] {
+  background: #ffffff;
+}
+
+.boton-color-auto[data-color="negro"] {
+  background: #181818;
+}
+
+.boton-color-auto[data-color="azul"] {
+  background: #278ce5;
+}
+
+.boton-color-auto[data-color="amarillo"] {
+  background: #f7c718;
+}
+
+.boton-color-auto.seleccionado {
+  transform: scale(1.10);
+
+  box-shadow:
+    0 0 0 3px #ffffff,
+    0 0 0 5px #d99b00;
+}
+
+.selector-color-auto-bloqueado .boton-color-auto {
+  opacity: 0.52;
+}
+
+.texto-color-auto {
+  display: block;
+  margin-top: 10px;
+
+  color: #876322;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================================
+   CABECERA LIMPIA — LOGIN Y USUARIO
+========================================= */
+
+/* Corrección principal:
+   evita que la tarjeta de usuario aparezca
+   cuando debe estar oculta */
+#usuario-info.oculto {
+  display: none !important;
+}
+
+#btn-login-google.oculto {
+  display: none !important;
+}
+
+/* Ubicación general */
+#panel-usuario {
+  top: 14px !important;
+  left: 14px !important;
+  z-index: 1200 !important;
+}
+
+/* Botón cuando todavía no inició sesión */
+#btn-login-google {
+  min-height: 44px !important;
+  padding: 0 16px !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 15px !important;
+
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #161616 !important;
+
+  font-size: 14px !important;
+  font-weight: 900 !important;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Tarjeta visible solo cuando hay usuario */
+#usuario-info:not(.oculto) {
+  display: flex !important;
+  align-items: center !important;
+
+  min-height: 44px !important;
+  max-width: calc(100vw - 28px) !important;
+
+  gap: 7px !important;
+  padding: 5px 7px !important;
+
+  border-radius: 15px !important;
+}
+
+/* Diseño normal para cuenta gratuita */
+#usuario-info:not(.oculto):not(.usuario-premium) {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Foto de usuario */
+#usuario-foto {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+
+  object-fit: cover !important;
+  border-radius: 50% !important;
+
+  background: #0a6256 !important;
+}
+
+/* Nombre corto, limpio y sin romper la cápsula */
+#usuario-nombre {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: 92px !important;
+
+  color: #171717 !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Botón de menú */
+#btn-menu-usuario {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+
+  border-radius: 11px !important;
+  background: #f0f0f0 !important;
+
+  font-size: 18px !important;
+}
+
+/* Botón salir */
+#btn-logout {
+  min-height: 34px !important;
+  padding: 0 10px !important;
+
+  border-radius: 11px !important;
+  background: #f0f0f0 !important;
+
+  color: #202020 !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+
+/* =========================================
+   CABECERA VISITANTE — GOOGLE + MENÚ
+========================================= */
+
+#panel-usuario {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Botón Entrar con Google */
+#btn-login-google {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  min-height: 44px !important;
+  padding: 0 16px !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: 15px !important;
+
+  background: rgba(255, 255, 255, 0.97) !important;
+  color: #171717 !important;
+
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+
+  cursor: pointer !important;
+}
+
+/* G multicolor */
+#btn-login-google .icono-google {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 24px !important;
+  height: 24px !important;
+  flex: 0 0 24px !important;
+
+  border-radius: 50% !important;
+  background: #ffffff !important;
+
+  font-family: Arial, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+
+  background-image: conic-gradient(
+    from -40deg,
+    #4285f4 0deg 90deg,
+    #34a853 90deg 175deg,
+    #fbbc05 175deg 255deg,
+    #ea4335 255deg 360deg
+  ) !important;
+
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+
+  text-shadow: none !important;
+}
+
+#btn-login-google:active {
+  transform: scale(0.96) !important;
+}
+
+/* Botón ☰ visitante */
+#btn-menu-visitante {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: 15px !important;
+
+  background: rgba(255, 255, 255, 0.97) !important;
+  color: #222 !important;
+
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+
+  cursor: pointer !important;
+}
+
+/* El menú extra es únicamente para visitante */
+#panel-usuario:has(#usuario-info:not(.oculto)) #btn-menu-visitante {
+  display: none !important;
+}
+
+#btn-menu-visitante:active {
+  transform: scale(0.93) !important;
+}
+
+/* Descuento anual Premium */
+.badge-descuento-anual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 6px;
+  padding: 3px 6px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #fff2a2, #f4b400, #ffdf62);
+  color: #4a3000;
+
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+
+  border: 1px solid rgba(178, 116, 0, 0.28);
+}
+
+/* =========================================
+   PLAN PREMIUM — ESTILO ELEGANTE Y LIMPIO
+   No altera el tamaño ni la estructura
+========================================= */
+
+.plan-premium {
+  border: 1px solid rgba(220, 167, 36, 0.68) !important;
+
+  background: linear-gradient(
+    180deg,
+    #fffef9 0%,
+    #fff8e4 100%
+  ) !important;
+
+  box-shadow:
+    0 7px 18px rgba(193, 137, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Brillo suave existente, menos invasivo */
+.plan-premium .plan-premium-brillo {
+  top: -60px !important;
+  right: -58px !important;
+
+  width: 145px !important;
+  height: 145px !important;
+
+  background: rgba(255, 210, 57, 0.16) !important;
+  filter: blur(18px) !important;
+}
+
+/* Encabezado más ordenado */
+.plan-premium .plan-card-cabecera {
+  align-items: center !important;
+
+  padding-bottom: 9px !important;
+
+  border-bottom: 1px solid rgba(212, 158, 20, 0.18) !important;
+}
+
+/* Etiqueta Premium más fina */
+.plan-premium .plan-etiqueta-premium {
+  display: inline-flex !important;
+  align-items: center !important;
+
+  padding: 3px 6px !important;
+
+  border: 1px solid rgba(187, 130, 0, 0.24) !important;
+  border-radius: 999px !important;
+
+  background: #fff3bd !important;
+  color: #9b6500 !important;
+
+  font-size: 8px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.45px !important;
+}
+
+/* Título */
+.plan-premium h4 {
+  margin-top: 5px !important;
+  color: #3f2d05 !important;
+  font-size: 18px !important;
+}
+
+/* Precio mensual en cápsula */
+.plan-premium .plan-precios-premium {
+  min-width: 68px !important;
+  padding: 6px 8px !important;
+
+  border: 1px solid rgba(210, 154, 0, 0.22) !important;
+  border-radius: 12px !important;
+
+  background: rgba(255, 255, 255, 0.72) !important;
+
+  box-shadow: 0 3px 8px rgba(192, 133, 0, 0.10) !important;
+}
+
+.plan-premium .plan-precios-premium strong {
+  color: #b47400 !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+}
+
+.plan-premium .plan-precios-premium span {
+  color: #80601f !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+}
+
+/* Oferta anual más clara */
+.plan-premium .plan-anual {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+
+  margin: 10px 0 !important;
+  padding: 7px 8px !important;
+
+  border: 1px solid rgba(213, 159, 11, 0.18) !important;
+  border-radius: 10px !important;
+
+  background: rgba(255, 247, 215, 0.72) !important;
+
+  color: #73551c !important;
+  font-size: 10px !important;
+}
+
+.plan-premium .plan-anual strong {
+  color: #a66c00 !important;
+  font-size: 13px !important;
+}
+
+/* Beneficios más legibles */
+.plan-premium .beneficios-premium {
+  gap: 7px !important;
+}
+
+.plan-premium .beneficios-premium li {
+  color: #58430e !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+/* Botón Premium elegante y directo */
+#btn-activar-premium {
+  min-height: 43px !important;
+
+  border: 1px solid rgba(173, 111, 0, 0.25) !important;
+  border-radius: 13px !important;
+
+  background: linear-gradient(
+    135deg,
+    #ffd648 0%,
+    #f2ad00 52%,
+    #df9200 100%
+  ) !important;
+
+  color: #4b3100 !important;
+
+  font-size: 13px !important;
+  font-weight: 900 !important;
+
+  box-shadow:
+    0 6px 13px rgba(195, 125, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52) !important;
+}
+
+#btn-activar-premium:active {
+  transform: scale(0.98) !important;
+}
+
+/* =========================================
+   COMENTARIOS COMPARTIDOS: WEB + ANDROID
+   Comentarios reales desde alertas/{id}/comentarios
+   ========================================= */
+
+.popup-alerta .comentario-nombre {
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: none;
+}
+
+.popup-alerta .comentario-hora {
+  color: #7c8aa0;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.popup-alerta .comentarios-cargando,
+.popup-alerta .comentarios-vacios {
+  color: #64748b;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.popup-alerta .lista-comentarios {
+  list-style: none;
+  padding-left: 0;
+}
+
+.popup-alerta .comentario-item {
+  border: 1px solid #e7edf4;
 }
