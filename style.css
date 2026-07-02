@@ -2345,3 +2345,87 @@ transition: transform 0.35s ease;
 .popup-alerta .comentario-item {
   border: 1px solid #e7edf4;
 }
+
+/* =========================================
+   FIX: comentarios compartidos Android + web
+   Deben verse completos dentro de la tarjeta
+   ========================================= */
+
+#map .leaflet-popup .popup-alerta .lista-comentarios {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  position: static !important;
+  float: none !important;
+  clear: both !important;
+
+  width: 100% !important;
+  max-height: 170px !important;
+  overflow-y: auto !important;
+
+  margin: 10px 0 !important;
+  padding: 0 !important;
+
+  list-style: none !important;
+  grid-column: 1 / -1 !important;
+}
+
+#map .leaflet-popup .popup-alerta .lista-comentarios li {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  position: static !important;
+  width: 100% !important;
+
+  margin: 0 0 8px !important;
+  padding: 9px !important;
+
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+
+  color: #1e293b !important;
+  font-size: 12px !important;
+
+  grid-column: 1 / -1 !important;
+}
+
+#map .leaflet-popup .popup-alerta .comentario-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin-bottom: 5px !important;
+}
+
+#map .leaflet-popup .popup-alerta .comentario-nombre {
+  color: #1e293b !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+#map .leaflet-popup .popup-alerta .comentario-hora {
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+}
+
+#map .leaflet-popup .popup-alerta .comentario-item p {
+  display: block !important;
+  margin: 0 !important;
+  color: #334155 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+/* Si la tarjeta crece, se podrá desplazar sin ocultar comentarios */
+#map .leaflet-popup .leaflet-popup-content-wrapper {
+  max-height: calc(100vh - 145px) !important;
+  overflow-y: auto !important;
+}
+
+#map .leaflet-popup .leaflet-popup-content {
+  max-height: none !important;
+  overflow: visible !important;
+}
